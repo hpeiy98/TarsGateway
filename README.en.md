@@ -1,5 +1,7 @@
+[点我查看中文版](README.md)
+
 # Introduction
-TarsGateway is a general API gateway based on the TARS development framework, supporting the HTTP protocol for requests and tars-tup&tars-tars protocol, tars-json protocol, and HTTP protocol for the backend. In addition to protocol forwarding, it also supports flow control, black and white lists and other functions. For more information, please refer to [TarsDocs](https://tarscloud.github.io/TarsDocs/)
+TarsGateway is a general API gateway based on the TARS development framework, supporting the HTTP protocol for requests and tars-tup&tars-tars protocol, tars-json protocol, and HTTP protocol for the backend. In addition to protocol forwarding, it also supports flow control, black and white lists and other functions. For more information, please refer to [TarsDocs](https://tarscloud.github.io/TarsDocs/).
  
 # Versions Supported
 * TarsCpp: >= v2.4.5
@@ -9,8 +11,7 @@ TarsGateway is a general API gateway based on the TARS development framework, su
 * TarsPHP: tars-server: >= v0.6.0
  
 # Installation
- 
-## Support one-click installation (tarscpp compilation environment is required, version>=v2.4.4):
+ Support one-click installation (tarscpp compilation environment is required, version>=v2.4.4):
 ```
     git clone https://github.com/TarsCloud/TarsGateway.git
     cd TarsGateway/install;
@@ -19,13 +20,13 @@ TarsGateway is a general API gateway based on the TARS development framework, su
  
 ```
 ## The installation parameters are as follows:
-* tarsweb_base     The base address of TarsWeb management end, for example: http://172.16.8.227:3000 (Be careful not to add / in the end).
-* token    TarsWeb management end’s token, which can be obtained through the management end http://${webhost}/auth.html#/token
-* Node_ip     The IP deployed by GatewayServer, and currently only one is supported here. If you need more, you can expand on the platform later.
-* gateway_db_ip     the database server ip where gateway db is located.
-* gateway_db_port     gateway db port.
-* gateway_db_user     gateway db user name ( the permission to build database and table required).
-* gateway_db_pwd gateway   db password.
+* **tarsweb_base:**     The base address of TarsWeb management end, for example: http://172.16.8.227:3000 (Be careful not to add / in the end).
+* **token:**    TarsWeb management end’s token, which can be obtained through the management end http://${webhost}/auth.html#/token
+* **Node_ip:**     The IP deployed by GatewayServer, and currently only one is supported here. If you need more, you can expand on the platform later.
+* **gateway_db_ip:**     The database server ip where gateway db is located.
+* **gateway_db_port:**     gateway db port.
+* **gateway_db_user:**     gateway db user name ( the permission to build database and table required).
+* **gateway_db_pwd:** gateway db password.
  
  
 Note:
@@ -41,7 +42,7 @@ Open http://${server_ip}:8200/monitor/monitor.html in the browser. If you can di
  
 # Functions of TarsGateway  
 ## 1. Recognize agency type
-TarsGateway can recognize the type of requests based on the host+url requests that are configured.  The configuration and its corresponding logics are as follows:
+TarsGateway can recognize the type of requests based on the host+url requests that are configured. The configuration and its corresponding logics are as follows:
 
 [comment]: <***Configuration Instruction***：>
 * Configuration domain: /main/base.
@@ -100,7 +101,7 @@ resquest：
     response：
     { "rsp": { "otherMsg": [ "1 + 9900989 = 9900990" ], "msg": "succ.", "sum": 9900990, "ret": 0 }, "": 0 }
 ``` 
-* **The relevant parameters are specified in the http body: **
+* **The relevant parameters are specified in the http body:**
 
 A post request type is required, with a  /json path and the body content a json structure. There must be four fields for reqid, obj, func, and data, which respectively represent request id, service servant, service interface, and interface parameters. These also correspond to reqid:iRequestId, obj:sServantName, func:sFuncName in BasePacket. The data content is the parameter in the interface, the key is the parameter name, and the value is the parameter content. In addition to the four required fields above, context is an optional field. The content of the returned package includes reqid and data. Data is the output parameter content of the interface, and "" ’s key corresponds to the function return value. Other than the packet format, everything is the same or identical to the TARS-tup type. Examples of request parameters are as follows:
 ```
@@ -240,16 +241,25 @@ When acting as a TARS-tup or TARS-JSON protocol proxy, you can specify it to the
 ```
 
 ## 9. Return code description
-200: OK normal response
-400: Bad Request 1. Solve the client request packet error.
-403: Forbidden 1. The client IP hits the blacklist.
-404: Not Found 1. Tup or json protocol can not find the corresponding servant agent; 2. Http can not find the back-end site;
-429: Too Many Request 1. Flow control exceeds limit;
-500: Server Interval Error 1. The http backend does not have a destination configured;
-502: Bad Gateway 1. The back-end tars service is called or the http service is abnormal;
-504: Gateway Timeout 1. Call the back-end tars service or http service is timed out;
 
-##10. Log format description
+200: OK normal response
+
+400: Bad Request 1. Solve the client request packet error.
+
+403: Forbidden 1. The client IP hits the blacklist.
+
+404: Not Found 1. Tup or json protocol can not find the corresponding servant agent. 2. Http can not find the back-end site.
+
+429: Too Many Request 1. Flow control exceeds limit.
+
+500: Server Interval Error 1. The http backend does not have a destination configured.
+
+502: Bad Gateway 1. The back-end tars service is called or the http service is abnormal.
+
+504: Gateway Timeout 1. Call the back-end tars service or http service is timed out.
+
+
+## 10. Log format description
 TARS-tup & TARS-JSON protocol proxy request response log format description:
 
 **Normal response log:**
@@ -257,7 +267,9 @@ TARS-tup & TARS-JSON protocol proxy request response log format description:
 Log time | Client ip | Client GUID | Client XUA | servantName | funcName | Request encryption type | Request compression type | Is the response encrypted | Is the response compressed | Time-consuming (ms) | Response packet size
 
 **Abnormal request tupcall_exception log:**
+
 Log time | Client ip | servantName | funcName | Client GUID | Client XUA | Request encryption type | Request compression type | Time-consuming (ms) | Back-end rpc return code
+
 
 General HTTP protocol proxy log format description:
 
